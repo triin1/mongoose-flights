@@ -20,11 +20,16 @@ async function create (req, res) {
         console.log(err);
         res.render("flights/new", { errorMsg: err.message })
     };
-    //if (req.body.departs < Date.now()) req.body.departs = "done";
 }
+
+async function show(req, res) {
+    const flight = await Flight.findById(req.params.id); 
+    res.render("flights/show", { flight: flight });
+};
 
 module.exports = {
     index,
     new: newFlight,
-    create
+    create,
+    show
 };

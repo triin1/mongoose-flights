@@ -1,0 +1,72 @@
+<%- include("../partials/header") %>
+
+<h2>Flight Details</h2>
+
+<table class="details-table">
+    <thead>
+        <tr>
+            <th>Airline:</th>
+            <th>Airport:</th>
+            <th>Flight Number:</th>
+            <th>Departure date:</th>
+            <th>Departure time:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= flight.airline %></td>
+            <td><%= flight.airport %></td>
+            <td><%= flight.flightNo %></td>
+            <td <% if (new Date(flight.departs) < new Date()) { %> style="color:red"; <% } %>> <%= flight.departs.toLocaleDateString("en-GB") %></td> 
+            <td <% if (new Date(flight.departs) < new Date()) { %> style="color:red"; <% } %>><%= flight.departs.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
+        </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Add Destination Information</h2>
+
+<form action="/flights/<%= flight._id %>/destinations" method="POST" class="details-table">
+    <label>Destination:
+        <select name="arrivalAirport">
+            <option value="AUS">AUS</option>
+            <option value="DFW">DWF</option>
+            <option value="DEN">DEN</option>
+            <option value="LAX">LAX</option>
+            <option value="SAN">SAN</option>
+            <option value="PHX">PHX</option>
+            <option value="LHR">LHR</option>
+        </select>
+    </label>
+
+    <label> Arrival:
+        <input type="datetime-local" name="arrival">
+    </label>
+    <button type="submit">Add Destination</button>
+</form>
+
+<hr>
+
+<h2>Arrival Details</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Destination:</th>
+            <th>Arrival date:</th>
+            <th>Arrival time:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% flight.destinations.forEach(function(d) {  %>
+        <tr>
+            <td><%= d.arrivalAirport %></td>
+            <td><%= d.arrival.toLocaleDateString("en-GB") %></td> 
+            <td><%= d.arrival.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<%- include("../partials/footer") %>
