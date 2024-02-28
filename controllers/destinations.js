@@ -3,9 +3,7 @@ const Flight = require("../models/flight");
 async function create(req, res) {
     // find the flight
     const flight = await Flight.findById(req.params.id);
-
-    const sorted = await Flight.find({}).sort( {arrival: "ascending"} );
-    // create the destination infromtion
+    // create the destination information
     flight.destinations.push(req.body);
     //save the changes
     try {

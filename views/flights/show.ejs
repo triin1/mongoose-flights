@@ -50,7 +50,7 @@
 
 <h2>Arrival Details</h2>
 
-<table>
+<table class="details-table">
     <thead>
         <tr>
             <th>Destination:</th>
@@ -64,6 +64,33 @@
             <td><%= d.arrivalAirport %></td>
             <td><%= d.arrival.toLocaleDateString("en-GB") %></td> 
             <td><%= d.arrival.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<hr>
+
+<div class="button-box">
+    <a href="/flights/<%= flight._id %>/tickets/new" class="button-style">Create New Ticket</a>
+</div>
+
+<hr>
+
+<h2>Ticket Information</h2>
+
+<table class="details-table">
+    <thead>
+        <tr>
+            <th>Seat:</th>
+            <th>Price:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% tickets.forEach(function(t) {  %>
+        <tr>
+            <td><%= t.seat %></td>
+            <td><%= t.price %></td>
         </tr>
         <% }) %>
     </tbody>
